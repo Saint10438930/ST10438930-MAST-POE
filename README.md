@@ -75,7 +75,6 @@ typescriptCopytype DishType = {
   name: string;
   price: number;
   description: string;
-  image: any;
 };
 
 type MenuType = {
@@ -89,4 +88,4 @@ Input validation for new menu items
 Image support for dishes
 
 **VIDEO LINK:**
-https://youtu.be/BcF0ecAKzbo 
+ https://youtu.be/kNIHTzrpvZA
