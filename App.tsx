@@ -1,24 +1,24 @@
-import React, { useState } from 'react';
-import { ScrollView, View, Text, TextInput, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react'; 
+import { Image,ScrollView, View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-// Sample dish data for demonstration
+// Sample dish data for demonstration without images
 let sampleDishes = {
   Starters: [
-    { name: 'Bruschetta', price: 6, description: 'Toasted bread with tomato and basil.', image: require('./assets/dishes/bruschetta.jpg') },
-    { name: 'Stuffed Mushrooms', price: 8, description: 'Mushrooms stuffed with cheese and herbs.', image: require('./assets/dishes/stuffed_mushrooms.jpg') },
-    { name: 'Caprese Salad', price: 7, description: 'Fresh mozzarella, tomatoes, and basil.', image: require('./assets/dishes/caprese_salad.jpg') },
+    { name: 'Bruschetta', price: 6, description: 'Toasted bread with tomato and basil.' },
+    { name: 'Stuffed Mushrooms', price: 8, description: 'Mushrooms stuffed with cheese and herbs.' },
+    { name: 'Caprese Salad', price: 7, description: 'Fresh mozzarella, tomatoes, and basil.' },
   ],
   Mains: [
-    { name: 'Grilled Chicken', price: 15, description: 'Chicken grilled to perfection.', image: require('./assets/dishes/grilled_chicken.jpg') },
-    { name: 'Beef Steak', price: 18, description: 'Juicy beef steak cooked to order.', image: require('./assets/dishes/beef_steak.jpg') },
-    { name: 'Vegetarian Lasagna', price: 14, description: 'Lasagna with roasted vegetables.', image: require('./assets/dishes/vegetarian_lasagna.jpg') },
+    { name: 'Grilled Chicken', price: 15, description: 'Chicken grilled to perfection.' },
+    { name: 'Beef Steak', price: 18, description: 'Juicy beef steak cooked to order.' },
+    { name: 'Vegetarian Lasagna', price: 14, description: 'Lasagna with roasted vegetables.' },
   ],
   Desserts: [
-    { name: 'Chocolate Cake', price: 5, description: 'Rich chocolate cake with cream.', image: require('./assets/dishes/chocolate_cake.jpg') },
-    { name: 'Tiramisu', price: 6, description: 'Classic Italian coffee-flavored dessert.', image: require('./assets/dishes/tiramisu.jpg') },
-    { name: 'Cheesecake', price: 7, description: 'Creamy cheesecake with berry topping.', image: require('./assets/dishes/cheesecake.jpg') },
+    { name: 'Chocolate Cake', price: 5, description: 'Rich chocolate cake with cream.' },
+    { name: 'Tiramisu', price: 6, description: 'Classic Italian coffee-flavored dessert.' },
+    { name: 'Cheesecake', price: 7, description: 'Creamy cheesecake with berry topping.' },
   ],
 };
 
@@ -31,7 +31,6 @@ type DishType = {
   name: string;
   price: number;
   description: string;
-  image: any;
 };
 
 type MenuType = {
@@ -122,7 +121,6 @@ const MenuScreen = () => {
           <Text style={styles.courseTitle}>{course}</Text>
           {menu[course].map((dish, dishIndex) => (
             <View key={dishIndex} style={styles.dishContainer}>
-              <Image source={dish.image} style={styles.dishImage} />
               <Text style={styles.dishText}>{dish.name} - ${dish.price}</Text>
               <Text style={styles.dishDescription}>{dish.description}</Text>
             </View>
@@ -152,7 +150,6 @@ const ManageMenuScreen = () => {
       name: newDish.name,
       price: parseFloat(newDish.price),
       description: newDish.description,
-      image: require('./assets/dishes/default.jpg') // Default image for new dishes
     };
 
     menu[newDish.course] = [...menu[newDish.course], dish];
@@ -271,7 +268,6 @@ const FilterScreen = () => {
         <Text style={styles.selectedCourse}>Selected: {selectedCourse}</Text>
         {menu[selectedCourse].map((dish, index) => (
           <View key={index} style={styles.dishContainer}>
-            <Image source={dish.image} style={styles.dishImage} />
             <Text style={styles.dishText}>{dish.name} - ${dish.price}</Text>
             <Text style={styles.dishDescription}>{dish.description}</Text>
           </View>
@@ -285,164 +281,106 @@ const FilterScreen = () => {
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator 
-        initialRouteName="Home"
-        screenOptions={{
-          headerStyle: {
-            backgroundColor: '#1e1e1e',
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
-        }}
-      >
-        <Stack.Screen 
-          name="Home" 
-          component={HomeScreen} 
-          options={{ title: 'Digital Menu' }}
-        />
-        <Stack.Screen 
-          name="MenuScreen" 
-          component={MenuScreen} 
-          options={{ title: 'Full Menu' }}
-        />
-        <Stack.Screen 
-          name="ManageMenuScreen" 
-          component={ManageMenuScreen} 
-          options={{ title: 'Manage Menu' }}
-        />
-        <Stack.Screen 
-          name="FilterScreen" 
-          component={FilterScreen} 
-          options={{ title: 'Filter Menu' }}
-        />
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="MenuScreen" component={MenuScreen} />
+        <Stack.Screen name="ManageMenuScreen" component={ManageMenuScreen} />
+        <Stack.Screen name="FilterScreen" component={FilterScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
 
+// Styles
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#121212',
-    padding: 20,
+  container: { 
+    flex: 1, 
+    padding: 16, 
+    backgroundColor: '#2e2e2e' 
   },
-  logoContainer: {
-    alignItems: 'flex-end',
-    marginVertical: 20,
-    paddingHorizontal: 20,
+  heading: { 
+    fontSize: 24, 
+    color: '#fff', 
+    marginVertical: 16 
   },
-  logo: {
-    width: 50,
-    height: 50,
+  subheading: { 
+    fontSize: 18, 
+    color: '#ccc' 
   },
-  heading: {
-    fontSize: 24,
-    color: '#ffffff',
-    marginBottom: 20,
-    fontWeight: 'bold',
+  totalItems: { 
+    color: '#aaa', 
+    fontSize: 16, 
+    marginVertical: 8 
   },
-  subheading: {
-    fontSize: 18,
-    color: '#ffffff',
-    marginVertical: 10,
+  averagePricesContainer: { 
+    marginBottom: 16 
   },
-  totalItems: {
-    fontSize: 16,
-    color: '#cccccc',
-    marginBottom: 10,
+  averagePrice: { color: '#aaa', 
+    fontSize: 16, 
+    marginTop: 4 
   },
-  averagePricesContainer: {
-    backgroundColor: '#1e1e1e',
-    padding: 15,
-    borderRadius: 10,
-    marginBottom: 20,
+  input: { backgroundColor: '#555', 
+    color: '#fff', 
+    padding: 12, 
+    marginVertical: 8 
   },
-  averagePrice: {
-    fontSize: 16,
-    color: '#cccccc',
-    marginBottom: 5,
+  button: { 
+    backgroundColor: '#4e7bdc', 
+    padding: 12, 
+    marginVertical: 8 
   },
-  courseTitle: {
-    fontSize: 20,
-    color: '#ffffff',
-    marginVertical: 10,
-    fontWeight: 'bold',
+  buttonText: { color: '#fff', 
+    textAlign: 'center', 
+    fontWeight: 'bold' 
   },
-  dishContainer: {
-    marginBottom: 20,
-    backgroundColor: '#1e1e1e',
-    borderRadius: 10,
-    padding: 15,
+  courseTitle: { fontSize: 20, 
+    color: '#f1c40f', 
+    marginTop: 16 
   },
-  dishImage: {
-    width: '100%',
-    height: 150,
-    borderRadius: 10,
-    marginBottom: 10,
+  dishContainer: { 
+    paddingVertical: 8 
   },
-  dishText: {
-    fontSize: 16,
-    color: '#ffffff',
-    fontWeight: 'bold',
+  dishText: { 
+    color: '#eee', 
+    fontSize: 16 
   },
-  dishDescription: {
-    fontSize: 14,
-    color: '#aaaaaa',
+  dishDescription: { color: '#bbb', 
+    fontSize: 14, 
+    marginTop: 4 
   },
-  input: {
-    height: 40,
-    borderColor: '#cccccc',
-    borderWidth: 1,
-    borderRadius: 5,
-    marginBottom: 15,
-    paddingHorizontal: 10,
-    color: '#ffffff',
-    backgroundColor: '#1e1e1e',
+  removeButton: { 
+    backgroundColor: '#e74c3c', 
+    padding: 6, 
+    marginTop: 8 
   },
-  button: {
-    backgroundColor: '#6200ee',
-    padding: 15,
-    borderRadius: 5,
-    alignItems: 'center',
-    marginBottom: 15,
+  filterButtons: { 
+    flexDirection: 'row', 
+    flexWrap: 'wrap', 
+    marginVertical: 8 
   },
-  buttonText: {
-    color: '#ffffff',
-    fontWeight: 'bold',
+  courseButton: { backgroundColor: '#555', 
+    padding: 8, 
+    margin: 4 
   },
-  removeButton: {
-    backgroundColor: '#cf6679',
-    padding: 10,
-    borderRadius: 5,
-    alignItems: 'center',
-    marginTop: 10,
+  courseButtonSelected: { 
+    backgroundColor: '#4e7bdc' 
   },
-  pickerContainer: {
-    marginBottom: 20,
+  courseButtonText: { 
+    color: '#fff', 
+    fontSize: 14 
   },
-  courseButton: {
-    backgroundColor: '#1e1e1e',
-    padding: 10,
-    borderRadius: 5,
-    marginBottom: 10,
+  selectedCourse: { 
+    color: '#f1c40f', 
+    fontSize: 18, 
+    marginVertical: 12 
   },
-  courseButtonSelected: {
-    backgroundColor: '#6200ee',
+  logoContainer: { 
+    alignItems: 'flex-end', 
+    marginBottom: 20 
   },
-  courseButtonText: {
-    color: '#ffffff',
-    textAlign: 'center',
-  },
-  filterButtons: {
-    marginBottom: 20,
-  },
-  selectedCourse: {
-    fontSize: 18,
-    color: '#ffffff',
-    marginBottom: 15,
-  }
+  logo: { 
+    width: 35, 
+    height: 35 },
 });
 
 export default App;
