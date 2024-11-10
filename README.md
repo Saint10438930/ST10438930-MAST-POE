@@ -87,3 +87,6 @@ Consistent dark theme implementation
 Responsive design using StyleSheet
 Input validation for new menu items
 Image support for dishes
+
+**VIDEO LINK:**
+https://youtu.be/BcF0ecAKzbo 
